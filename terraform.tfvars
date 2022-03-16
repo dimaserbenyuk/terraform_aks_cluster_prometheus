@@ -1,0 +1,12 @@
+resource_group_name                        = "prometheus"
+location                                   = "westus2"
+cluster_name                               = "dserbeniuk"
+kubernetes_version                         = "1.21.7"
+system_node_count                          = 1
+acr_name                                   = "myacr3210201020"
+prometheus_replica                         = 1
+monitoring_name_space                      = "monitoring"
+prometheus_node_port                       = 30000
+prometheus_service_type                    = "NodePort"
+#storage_class_name                         = "standard"
+#prometheus_persistent_volume_claim_storage = "3Gi"
