@@ -26,7 +26,10 @@ variable "grafana_node_port" {
   type        = number
   default     = "32000"
 }
-
+variable "grafana_ingress_host" {
+  type    = string
+  default = "grafana.example.com"
+}
 #variable "grafana_persistent_volume_claim_storage" {
 #  description = "grafana storage size"
 #  type        = string

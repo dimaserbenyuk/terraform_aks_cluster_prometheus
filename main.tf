@@ -74,3 +74,4 @@ module "grafana" {
   #  grafana_persistent_volume_claim_storage = var.grafana_persistent_volume_claim_storage
   #  storage_class_name                      = var.storage_class_name
 }
+
