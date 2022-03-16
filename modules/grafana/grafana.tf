@@ -1,5 +1,5 @@
 resource "kubernetes_deployment" "deployment" {
-  depends_on = [kubernetes_config_map.configmap, kubernetes_persistent_volume_claim.pvc]
+  depends_on = [kubernetes_config_map.configmap]
 
   metadata {
     name      = "grafana"
@@ -34,25 +34,41 @@ resource "kubernetes_deployment" "deployment" {
       }
 
       spec {
+        volume {
+          name = "grafana-storage"
+        }
+
+        volume {
+          name = "grafana-datasources"
+
+          config_map {
+            name         = "grafana-datasources"
+            default_mode = "0644"
+          }
+        }
+
         container {
           name  = "grafana"
           image = "grafana/grafana:latest"
+
           port {
             name           = "grafana"
             container_port = 3000
           }
 
           resources {
-            limits {
-              cpu    = "1000m"
-              memory = "2Gi"
-            }
-            requests {
-              cpu    = "500m"
+            limits = {
+              cpu = "1"
+
               memory = "1Gi"
             }
-          }
 
+            requests = {
+              cpu = "500m"
+
+              memory = "500M"
+            }
+          }
 
           volume_mount {
             name       = "grafana-storage"
@@ -62,21 +78,6 @@ resource "kubernetes_deployment" "deployment" {
           volume_mount {
             name       = "grafana-datasources"
             mount_path = "/etc/grafana/provisioning/datasources"
-            read_only  = false
-
-          }
-        }
-        volume {
-          name = "grafana-datasources"
-          config_map {
-            default_mode = "0777"
-            name         = "grafana-datasources"
-          }
-        }
-        volume {
-          name = "grafana-storage"
-          persistent_volume_claim {
-            claim_name = "grafana-pvc"
           }
         }
         automount_service_account_token = true

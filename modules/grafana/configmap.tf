@@ -1,7 +1,7 @@
 resource "kubernetes_config_map" "configmap" {
   metadata {
-    name          = "grafana-datasources"
-    namenamespace = var.monitoring_name_space
+    name      = "grafana-datasources"
+    namespace = var.monitoring_name_space
     labels = {
       name = "grafana-datasources"
     }

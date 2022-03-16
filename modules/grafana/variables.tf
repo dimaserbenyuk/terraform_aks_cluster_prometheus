@@ -27,14 +27,14 @@ variable "grafana_node_port" {
   default     = "32000"
 }
 
-variable "grafana_persistent_volume_claim_storage" {
-  description = "grafana storage size"
-  type        = string
-  default     = "5Gi"
-}
+#variable "grafana_persistent_volume_claim_storage" {
+#  description = "grafana storage size"
+#  type        = string
+#  default     = "5Gi"
+#}
 
-variable "storage_class_name" {
-  description = "storageClass for dynamically provisioning"
-  type        = string
-  default     = "Standard_LRS"
-}
+#variable "storage_class_name" {
+#  description = "storageClass for dynamically provisioning"
+#  type        = string
+#  default     = "managed"
+#}

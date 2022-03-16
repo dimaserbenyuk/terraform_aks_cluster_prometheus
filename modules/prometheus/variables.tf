@@ -7,13 +7,13 @@ variable "monitoring_name_space" {
   type        = string
   default     = "monitoring"
 }
-variable "prometheus_node_port" {
-  type        = number
-  description = "port to expose prometheus service"
-}
 variable "prometheus_service_type" {
   type        = string
   description = "type of kubernetes service for prometheus"
+}
+variable "prometheus_node_port" {
+  description = "port to expose prometheus service"
+  default     = "30000"
 }
 #variable "storage_class_name" {
 # default     = "nfs"
