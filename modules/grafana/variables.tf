@@ -13,7 +13,7 @@ variable "grafana_service_type" {
 variable "grafana_replica" {
   description = "number of grafana replicas"
   type        = number
-  default     = 1
+  default     = "1"
 }
 variable "monitoring_name_space" {
   description = "defualt namespaace for monitoring management tooles"
@@ -24,7 +24,7 @@ variable "monitoring_name_space" {
 variable "grafana_node_port" {
   description = "port to expose grafana service"
   type        = number
-  default     = 32000
+  default     = "32000"
 }
 
 variable "grafana_persistent_volume_claim_storage" {

@@ -60,3 +60,17 @@ module "prometheus" {
   # storage_class_name                         = var.storage_class_name
   #prometheus_persistent_volume_claim_storage = var.prometheus_persistent_volume_claim_storage
 }
+
+#grafana
+#https://github.com/grafana/grafana
+
+module "grafana" {
+  source = "./modules/grafana"
+  # grafana_ingress_host = var.grafana_ingress_host
+  monitoring_name_space                   = var.monitoring_name_space
+  grafana_service_type                    = var.grafana_service_type
+  grafana_replica                         = var.grafana_replica
+  grafana_node_port                       = var.grafana_node_port
+  grafana_persistent_volume_claim_storage = var.grafana_persistent_volume_claim_storage
+  storage_class_name                      = var.storage_class_name
+}
