@@ -14,16 +14,15 @@ resource "kubernetes_ingress" "ingress" {
       http {
         path {
           path = "/"
-
           backend {
-            service_name = kubernetes_service.service.metadata.0.name
-            service_port = kubernetes_service.service.spec.0.port.0.port
+            service_name = "grafana"
+            service_port = 3000
           }
         }
       }
     }
     tls {
-      hosts       = ["promiteustest.net"]
+      hosts       = ["grafana1648factory.net"]
       secret_name = "prometheus-tls-secret"
     }
   }

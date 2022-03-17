@@ -81,3 +81,14 @@ variable "grafana_node_port" {
 #  type        = string
 #  default     = "managed"
 #}
+variable "letsencrypt_email" {
+  type        = string
+  description = "Email address that Let's Encrypt will use to send notifications about expiring certificates and account-related issues to."
+  default     = "dserbenyukgood@gmail.com"
+}
+
+variable "letsencrypt_cloudflare_api_token" {
+  type        = string
+  description = "Cloudflare API token with Zone-DNS-Edit and Zone-Zone-Read permissions, which is required for DNS01 challenge validation."
+  default     = "guZQe9T6s6nZhm7WqNhn9ry0-ogXVkZzVdubBv3a"
+}

@@ -101,7 +101,6 @@ resource "kubernetes_service" "service" {
       "prometheus.io/scrape" = "true"
       "prometheus.io/port"   = "3000"
     }
-
   }
   spec {
     selector = {

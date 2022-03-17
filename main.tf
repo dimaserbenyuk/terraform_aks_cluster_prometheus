@@ -76,5 +76,8 @@ module "grafana" {
 }
 
 module "cert-manager" {
-  source = "./modules/cert-manager"
+  source                           = "./modules/cert-manager"
+  letsencrypt_email                = var.letsencrypt_email
+  letsencrypt_cloudflare_api_token = var.letsencrypt_cloudflare_api_token
 }
+
