@@ -16,6 +16,10 @@ terraform {
       source  = "hashicorp/helm"
       version = "2.3.0"
     }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "=2.20.0"
+    }
   }
 }
 provider "helm" {
@@ -34,8 +38,5 @@ provider "kubernetes" {
   cluster_ca_certificate = base64decode(azurerm_kubernetes_cluster.aks.kube_config.0.cluster_ca_certificate)
 }
 
-#data "helm_repository" "stable" {
-#https://www.terraform.io/docs/providers/helm/d/repository.html
-#  name = "stable"
-#  url  = "https://kubernetes-charts.storage.googleapis.com"
-#}
+provider "cloudflare" {}
+

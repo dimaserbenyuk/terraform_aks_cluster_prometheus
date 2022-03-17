@@ -4,7 +4,8 @@ resource "kubernetes_ingress" "ingress" {
     namespace = "monitoring"
 
     annotations = {
-      "kubernetes.io/ingress.class" = "nginx"
+      "cert-manager.io/cluster-issuer"           = "letsencrypt-staging"
+      "traefik.ingress.kubernetes.io/router.tls" = "true"
     }
   }
   spec {
@@ -20,6 +21,10 @@ resource "kubernetes_ingress" "ingress" {
           }
         }
       }
+    }
+    tls {
+      hosts       = ["promiteustest.net"]
+      secret_name = "prometheus-tls-secret"
     }
   }
 }
