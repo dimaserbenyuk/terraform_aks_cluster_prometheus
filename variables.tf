@@ -41,17 +41,7 @@ variable "prometheus_service_type" {
   type        = string
   default     = "NodePort"
 }
-#variable "storage_class_name" {
-# description = "storageClass for dynamically provisioning"
-# type        = string
-# default     = "standard"
-#}
-#variable "prometheus_persistent_volume_claim_storage" {
-# description = "proemtheus storage size"
-# type        = string
-# default     = "3Gi"
-#}
-#grafana
+
 variable "grafana_service_type" {
   description = "type of kubernetes service for grafana"
   type        = string
@@ -70,17 +60,6 @@ variable "grafana_node_port" {
   default     = "32000"
 }
 
-#variable "grafana_persistent_volume_claim_storage" {
-#  description = "grafana storage size"
-#  type        = string
-#  default     = "5Gi"
-#}
-
-#variable "storage_class_name" {
-#  description = "storageClass for dynamically provisioning"
-#  type        = string
-#  default     = "managed"
-#}
 variable "letsencrypt_email" {
   type        = string
   description = "Email address that Let's Encrypt will use to send notifications about expiring certificates and account-related issues to."
@@ -91,4 +70,21 @@ variable "letsencrypt_cloudflare_api_token" {
   type        = string
   description = "Cloudflare API token with Zone-DNS-Edit and Zone-Zone-Read permissions, which is required for DNS01 challenge validation."
   default     = "guZQe9T6s6nZhm7WqNhn9ry0-ogXVkZzVdubBv3a"
+}
+variable "kubestate_replica" {
+  description = "number of kube-state-metrics replicas"
+
+  type    = number
+  default = 1
+}
+
+variable "kubestate_name_space" {
+  description = "defualt namespaace for metrics collector"
+
+  type    = string
+  default = "kube-system"
+}
+variable "dev_shared_subscription_id" {
+  type        = string
+  description = "subscription_id"
 }

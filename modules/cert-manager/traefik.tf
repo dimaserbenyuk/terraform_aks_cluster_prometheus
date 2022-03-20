@@ -6,10 +6,10 @@ resource "helm_release" "traefik" {
   version    = "9.18.2"
   namespace  = var.monitoring_name_space
 
-  set {
-    name  = "ports.web.redirectTo"
-    value = "websecure"
-  }
+  #set {
+  #  name  = "ports.web.redirectTo"
+  #  value = "websecure"
+  #}
 
   # Trust private AKS IP range
   set {
@@ -18,7 +18,7 @@ resource "helm_release" "traefik" {
   }
 }
 
-data "kubernetes_service" "grafana" {
+data "kubernetes_service" "traefik" {
   metadata {
     name      = helm_release.traefik.name
     namespace = var.monitoring_name_space
@@ -29,7 +29,7 @@ resource "cloudflare_record" "traefik" {
   zone_id = "e617733fb42a7dc87c2bf4bd417daf9a"
   name    = "grafana1648factory.net"
   type    = "A"
-  value   = data.kubernetes_service.grafana.status.0.load_balancer.0.ingress.0.ip
+  value   = data.kubernetes_service.traefik.status.0.load_balancer.0.ingress.0.ip
   proxied = true
 }
 

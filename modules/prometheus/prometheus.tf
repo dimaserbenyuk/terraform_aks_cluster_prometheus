@@ -1,3 +1,4 @@
+
 resource "kubernetes_deployment" "deployment" {
   depends_on = [kubernetes_config_map.configmap]
 
@@ -82,7 +83,6 @@ resource "kubernetes_deployment" "deployment" {
   }
 }
 
-
 resource "kubernetes_service" "service" {
   metadata {
     name      = "prometheus-service"
@@ -92,7 +92,6 @@ resource "kubernetes_service" "service" {
       "prometheus.io/port"   = "9090"
 
     }
-
   }
   spec {
     selector = {

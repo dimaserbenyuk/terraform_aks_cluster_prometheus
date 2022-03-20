@@ -28,7 +28,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   default_node_pool {
     name                = "system"
     node_count          = var.system_node_count
-    vm_size             = "Standard_D2_v5"
+    vm_size             = "Standard_DS2_v2"
     type                = "VirtualMachineScaleSets"
     availability_zones  = [1, 2, 3]
     enable_auto_scaling = false
@@ -81,3 +81,13 @@ module "cert-manager" {
   letsencrypt_cloudflare_api_token = var.letsencrypt_cloudflare_api_token
 }
 
+module "kube-state-metrics" {
+  #https://github.com/kubernetes/kube-state-metrics
+  source               = "./modules/kube-state-metrics"
+  kubestate_replica    = var.kubestate_replica
+  kubestate_name_space = var.kubestate_name_space
+}
+module "prometheus-node-exporter" {
+  source                = "./modules/prometheus-node-exporter"
+  monitoring_name_space = var.monitoring_name_space
+}

@@ -1,4 +1,5 @@
 provider "azurerm" {
+  subscription_id = var.dev_shared_subscription_id
   features {}
 }
 

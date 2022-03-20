@@ -1,12 +1,13 @@
 resource_group_name                        = "prometheus"
-location                                   = "westus2"
-cluster_name                               = "dserbeniuk"
+location                                   = "East US"
+cluster_name                               = "prometheus"
 kubernetes_version                         = "1.21.7"
 system_node_count                          = 1
-acr_name                                   = "myacr3210201020"
+acr_name                                   = "prometheus994432"
 prometheus_replica                         = 1
 monitoring_name_space                      = "monitoring"
 prometheus_node_port                       = 30000
 prometheus_service_type                    = "NodePort"
 #storage_class_name                         = "standard"
 #prometheus_persistent_volume_claim_storage = "3Gi"
+dev_shared_subscription_id = "a4d33dc9-3b4e-470f-8024-10592c821737"
