@@ -1,0 +1,12 @@
+apiVersion: 1
+providers:
+- name: 'node-exporter-full'
+  folder: 'node-exporter'
+  options:
+    path: /var/lib/grafana/dashboards/node-exporter-full
+  orgId: 1
+  type: file
+  disableDeletion: false
+  editable: true
+
+

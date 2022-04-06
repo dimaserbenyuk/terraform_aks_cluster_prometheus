@@ -55,30 +55,17 @@ module "prometheus" {
   source                  = "./modules/prometheus"
   prometheus_replica      = var.prometheus_replica
   monitoring_name_space   = var.monitoring_name_space
-  prometheus_node_port    = var.prometheus_node_port
   prometheus_service_type = var.prometheus_service_type
-  # storage_class_name                         = var.storage_class_name
-  #prometheus_persistent_volume_claim_storage = var.prometheus_persistent_volume_claim_storage
 }
 
 #grafana
 #https://github.com/grafana/grafana
 
 module "grafana" {
-  source = "./modules/grafana"
-  # grafana_ingress_host = var.grafana_ingress_host
+  source                = "./modules/grafana"
   monitoring_name_space = var.monitoring_name_space
   grafana_service_type  = var.grafana_service_type
   grafana_replica       = var.grafana_replica
-  grafana_node_port     = var.grafana_node_port
-  #  grafana_persistent_volume_claim_storage = var.grafana_persistent_volume_claim_storage
-  #  storage_class_name                      = var.storage_class_name
-}
-
-module "cert-manager" {
-  source                           = "./modules/cert-manager"
-  letsencrypt_email                = var.letsencrypt_email
-  letsencrypt_cloudflare_api_token = var.letsencrypt_cloudflare_api_token
 }
 
 module "kube-state-metrics" {
@@ -89,5 +76,65 @@ module "kube-state-metrics" {
 }
 module "prometheus-node-exporter" {
   source                = "./modules/prometheus-node-exporter"
+  monitoring_name_space = var.monitoring_name_space
+}
+
+module "cert_manager" {
+  source  = "./modules/controller"
+  metrics = true
+}
+
+module "letsencrypt_issuer" {
+  source        = "./modules/letsencrypt"
+  namespace     = var.namespace
+  name          = var.name
+  server        = var.server
+  email         = var.email
+  ingress_class = var.ingress_class
+}
+
+module "alertmanager" {
+  #https://github.com/prometheus/alertmanager
+  source                    = "./modules/alertmanager"
+  monitoring_name_space     = var.monitoring_name_space
+  alertmanager_service_type = var.alertmanager_service_type
+  alertmanager_replica      = var.alertmanager_replica
+}
+
+module "reloader" {
+  # https://github.com/stakater/Reloader
+  source                = "./modules/reloader"
+  monitoring_name_space = var.monitoring_name_space
+}
+
+resource "azurerm_application_insights" "appinsights" {
+  name                = "grafana-webapp"
+  location            = "East US"
+  resource_group_name = "prometheus"
+  application_type    = "web"
+}
+
+resource "azurerm_storage_account" "aks-rg" {
+  name                     = "prometheus78543455"
+  resource_group_name      = azurerm_resource_group.aks-rg.name
+  location                 = azurerm_resource_group.aks-rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_share" "aks-rg" {
+  name                 = "prometheus-config"
+  storage_account_name = azurerm_storage_account.aks-rg.name
+  quota                = 50
+}
+
+resource "azurerm_storage_container" "aks-rg" {
+  name                  = "loki-storage"
+  storage_account_name  = azurerm_storage_account.aks-rg.name
+  container_access_type = "private"
+}
+
+module "loki" {
+  source                = "./modules/loki"
   monitoring_name_space = var.monitoring_name_space
 }

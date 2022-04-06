@@ -9,11 +9,6 @@ variable "monitoring_name_space" {
 }
 variable "prometheus_service_type" {
   type        = string
-  default     = "NodePort"
+  default     = "ClusterIP"
   description = "type of kubernetes service for prometheus"
 }
-variable "prometheus_node_port" {
-  description = "port to expose prometheus service"
-  default     = "30000"
-}
-

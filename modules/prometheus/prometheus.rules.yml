@@ -1,10 +1,11 @@
 groups:
 - name: devopscube demo alert
   rules:
-  - alert: High Pod Memory
-    expr: sum(container_memory_usage_bytes) > 1
-    for: 2m
+  - alert: PrometheusJobMissing
+    expr: absent(up{job="prometheus"})
+    for: 0m
     labels:
-      severity: slack
+      severity: warning
     annotations:
-      summary: High Memory Usage
+      summary: Prometheus job missing (instance {{ $labels.instance }})
+      description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"

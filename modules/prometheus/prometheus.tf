@@ -12,7 +12,6 @@ resource "kubernetes_deployment" "deployment" {
     annotations = {
       "configmap.reloader.stakater.com/reload" = "prometheus-server-conf"
     }
-
   }
 
   spec {
@@ -69,15 +68,17 @@ resource "kubernetes_deployment" "deployment" {
             mount_path = "/prometheus/"
           }
         }
+        #volume {
+        #  name = "prometheus-storage-volume"
+        #  persistent_volume_claim {
+        #    claim_name = "sample-storage-claim"
+        #  }
+        #}
 
         security_context {
           fs_group = "472"
         }
         automount_service_account_token = true
-        # node_selector = {
-        #   type = "master"
-        # }
-        # image_pull_policy = "IfNotPresent"
       }
     }
   }
@@ -85,7 +86,7 @@ resource "kubernetes_deployment" "deployment" {
 
 resource "kubernetes_service" "service" {
   metadata {
-    name      = "prometheus-service"
+    name      = "prometheus-service" #varia
     namespace = var.monitoring_name_space
     annotations = {
       "prometheus.io/scrape" = "true"
@@ -95,14 +96,13 @@ resource "kubernetes_service" "service" {
   }
   spec {
     selector = {
-      app = "prometheus-server"
+      app = "prometheus-server" #varia.  locals.tf 
     }
     port {
       port        = 8080
       target_port = 9090
-      node_port   = var.prometheus_node_port
     }
-
     type = var.prometheus_service_type
   }
 }
+
