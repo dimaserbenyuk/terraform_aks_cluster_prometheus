@@ -24,7 +24,7 @@ receivers:
     require_tls: false
 - name: slack_demo
   slack_configs:
-  - api_url: https://hooks.slack.com/services/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
+  - api_url: https:/edfr
     channel: "#1648factory"
     send_resolved: true
     icon_url: https://avatars3.githubusercontent.com/u/3380462
