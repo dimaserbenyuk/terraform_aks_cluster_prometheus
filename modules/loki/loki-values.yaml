@@ -87,7 +87,7 @@ config:
   storage_config:
     azure:
       # For the account-key, see docs: https://docs.microsoft.com/en-us/azure/storage/common/storage-account-keys-manage?tabs=azure-portal
-      account_key: zK+M/0Do1s4nel9Ng5EsPKiwLpFkmDkCvBBagC7VurolqcdpZhTjqA7ngWJT7V0qV73c1ou8j1Hb+AStaF7GMQ==
+      account_key: ....
       # Your azure account name
       account_name: prometheus87564312
       # See https://docs.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction#containers
